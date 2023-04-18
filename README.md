@@ -12,6 +12,7 @@ Projeto desenvolvido para a matéria de Programação para Dispositivos Móveis,
 - **[Ricardo Rebelo Junior](https://github.com/Rebel0R)**-  Desenvolvimento das telas: SearchRide, OfferRide, MyPerfil, My Rides e Feed. Validação dos dados e feedback de erros. Compartilhamento de dados entre páginas utilizando Provider, e cadastro de novas corridas em uma Lista de Corridas pré-cadastradas. Elaboração da identidade visual do Aplicativo e prototipação das telas.
 
 
+
 ## Instalação do projeto 💻
 
 Com base neste repositório, tendo o Flutter instalando em sua máquina e o AndroidStudio, execute este comando no *Git Bash*:
@@ -24,7 +25,6 @@ Após a clonagem do repositório, com o VSCode aberto eou no próprio terminal P
 ```bash
   flutter run
 ```
-
 
 
 ## Dependências Utilizadas 📜
@@ -48,6 +48,8 @@ Seguida pela execução deste comando no terminal:
 ```bash
 flutter packages get 
 ```
+
+
 ## Bugs 🕷
 
 Até o atual momento da fase de denvolvimento do projeto Caronaê nenhum bug foi encontrado.
