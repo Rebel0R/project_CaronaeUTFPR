@@ -15,13 +15,13 @@ Projeto desenvolvido para a matéria de Programação para Dispositivos Móveis,
 
 ## Instalação do projeto 💻
 
-Com base neste repositório, tendo o Flutter instalando em sua máquina e o AndroidStudio, execute este comando no *Git Bash*:
+Com base neste repositório, tendo o Flutter instalado em sua máquina e o AndroidStudio, execute este comando no *Git Bash*:
 
 ```bash
-  git clone 'caminho do repositório'
+  git clone git@github.com:Rebel0R/project_CaronaeUTFPR.git
 ```
 
-Após a clonagem do repositório, com o VSCode aberto eou no próprio terminal PowerShell, e o emulador Android ativo, execute o comando:
+Após a clonagem do repositório, com o VSCode aberto ou no próprio terminal PowerShell, e o emulador Android ativo, execute o comando:
 ```bash
   flutter run
 ```
@@ -29,7 +29,7 @@ Após a clonagem do repositório, com o VSCode aberto eou no próprio terminal P
 
 ## Dependências Utilizadas 📜
 
-Para realizar a passagem de dados de uma tela, e adicioná-los em uma lista de Corridas, e permitir que a lista fosse carregada na tela Feed, a dependência **Provider** foi utilizada.
+Para realizar a passagem de dados de uma tela, adicioná-los em uma lista de Corridas, e permitir que a lista fosse carregada na tela Feed, a dependência **Provider** foi utilizada.
 
 ```bash
 provider: ^5.0.0
@@ -52,13 +52,13 @@ flutter packages get
 
 ## Bugs 🕷
 
-Até o atual momento da fase de denvolvimento do projeto Caronaê nenhum bug foi encontrado.
+Até o atual momento da fase de desenvolvimento do projeto Caronaê nenhum bug foi encontrado.
 
 
 ## Funcionalidades Não Implementadas 😕
-Durante a primeira parte do projeto, as funcionalides não implementadas são:
+Durante a primeira parte do projeto, as funcionalidades não implementadas são:
 
-- Exibição das caronas reservadas por um usuário, ou seja, dentro da tela de Caronas não existe apresentação das caronas selecionadas pelo usuário.
+- Exibição das caronas reservadas por um usuário, ou seja, dentro da tela MyRides não existe a apresentação das caronas reservadas pelo usuário.
 
 - Implementação da transição dos possíveis estados de uma carona (aceita ou recusada). Quando um usuário reservar uma carona um alerta deverá chegar para o outro usuário que ofereceu a mesma, permitindo que ele decida se irá aceitá-lo ou não.
 
