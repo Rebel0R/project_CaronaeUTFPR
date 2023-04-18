@@ -146,7 +146,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           for (User user in widget.usersData) {
-                            if (user.email == emailController.text) {
+                            if (user.email == emailController.text &&
+                                user.password == passwordController.text) {
                               user.password = newPasswordController.text;
                               Navigator.pop(context);
 
