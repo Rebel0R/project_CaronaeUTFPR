@@ -26,6 +26,11 @@ Após a clonagem do repositório, com o VSCode aberto ou no próprio terminal Po
   flutter run
 ```
 
+Versão do Flutter e Dart utilizadas
+```bash
+  Flutter 3.7.10
+  Dart  2.19.7
+```
 
 ## Dependências Utilizadas 📜
 
