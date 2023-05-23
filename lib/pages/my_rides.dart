@@ -3,6 +3,11 @@ import 'package:project_caronae/components/user_components.dart';
 import 'package:project_caronae/pages/offer_ride.dart';
 import 'package:project_caronae/pages/perfil.dart';
 import 'package:project_caronae/pages/search_ride.dart';
+import 'package:provider/provider.dart';
+
+import '../components/ride_component.dart';
+import '../components/ride_widget_component.dart';
+import '../data/ride_data.dart';
 
 class MyRides extends StatefulWidget {
   User authenticatedUser;
@@ -17,24 +22,43 @@ class _MyRidesState extends State<MyRides> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: 412,
-        height: 707,
-        color: Color(0xFFFFF4DF),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 25, bottom: 8),
-          child: Text(
-            'Suas Caronas',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 28,
-              color: Color(0xFFFF8D21),
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
+      backgroundColor: Color(0xFFFFF4DF),
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Color(0xFFFFF4DF), // define a cor do ícone
+        ),
+        backgroundColor: Color(0XFFFF7B00),
+        title: Text(
+          'Minhas Caronas',
+          style: TextStyle(
+            color: Color(0xFFFFF4DF),
+            fontFamily: 'Roboto',
           ),
         ),
       ),
+      body: Consumer<RideData>(builder: (context, rides, child) {
+        return rides.list.isEmpty
+            ? ListTile(
+                title: Text('Nenhuma carona encontrada'),
+              )
+            : ListView.builder(
+                itemCount: rides.list.length,
+                itemBuilder: (_, index) {
+                  return (RideWidget(
+                      Ride(
+                          nameDriver: rides.list[index].ride.nameDriver,
+                          raDriver: rides.list[index].ride.raDriver,
+                          date: rides.list[index].ride.date,
+                          hour: rides.list[index].ride.hour,
+                          locationStart: rides.list[index].ride.locationStart,
+                          locationEnd: rides.list[index].ride.locationEnd,
+                          value: rides.list[index].ride.value,
+                          numberPassengers:
+                              rides.list[index].ride.numberPassengers),
+                      widget.authenticatedUser.ra));
+                },
+              );
+      }),
       bottomNavigationBar: BottomAppBar(
         color: Color(0XFFFF7B00),
         child: Padding(

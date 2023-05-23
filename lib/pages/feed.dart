@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:project_caronae/components/ride_components.dart';
+import 'package:project_caronae/components/ride_component.dart';
+import 'package:project_caronae/components/ride_widget_component.dart';
 import 'package:project_caronae/data/ride_data.dart';
 import 'package:provider/provider.dart';
+
+import '../components/user_components.dart';
 
 class Feed extends StatefulWidget {
   final String start;
   final String end;
-  const Feed({Key? key, required this.start, required this.end})
+  User authenticatedUser;
+  Feed(
+      {Key? key,
+      required this.start,
+      required this.end,
+      required this.authenticatedUser})
       : super(key: key);
 
   @override
@@ -14,6 +22,7 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
+  DateTime now = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,16 +48,22 @@ class _FeedState extends State<Feed> {
               : ListView.builder(
                   itemCount: rides.list.length,
                   itemBuilder: (_, index) {
-                    return (rides.list[index].locationStart == widget.start &&
-                            rides.list[index].locationEnd == widget.end)
-                        ? Ride(
-                            rides.list[index].date,
-                            rides.list[index].hour,
-                            rides.list[index].locationStart,
-                            rides.list[index].locationEnd,
-                            rides.list[index].nameDriver,
-                            rides.list[index].passenger,
-                            rides.list[index].value)
+                    return (rides.list[index].ride.locationStart ==
+                                widget.start &&
+                            rides.list[index].ride.locationEnd == widget.end)
+                        ? RideWidget(
+                            Ride(
+                                nameDriver: rides.list[index].ride.nameDriver,
+                                raDriver: rides.list[index].ride.raDriver,
+                                date: rides.list[index].ride.date,
+                                hour: rides.list[index].ride.hour,
+                                locationStart:
+                                    rides.list[index].ride.locationStart,
+                                locationEnd: rides.list[index].ride.locationEnd,
+                                value: rides.list[index].ride.value,
+                                numberPassengers:
+                                    rides.list[index].ride.numberPassengers),
+                            widget.authenticatedUser.ra)
                         : SizedBox(
                             height: 0,
                           );

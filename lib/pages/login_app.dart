@@ -4,6 +4,7 @@ import 'package:project_caronae/components/user_components.dart';
 import 'package:project_caronae/pages/reset_password.dart';
 import 'package:project_caronae/pages/search_ride.dart';
 import 'package:project_caronae/data/users_dao_data.dart';
+import 'package:project_caronae/services/session_services.dart';
 
 class LoginApp extends StatefulWidget {
   LoginApp({
@@ -159,6 +160,10 @@ class _LoginAppState extends State<LoginApp> {
                           );
                           if (authenticatedUser != null) {
                             print('Login realizado com sucesso!');
+                            Session sessao = Session();
+                            sessao.nome = authenticatedUser.fullname;
+                            sessao.email = authenticatedUser.email;
+                            sessao.ra = authenticatedUser.ra;
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

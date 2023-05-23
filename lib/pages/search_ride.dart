@@ -205,7 +205,9 @@ class _SearchRideState extends State<SearchRide> {
                             MaterialPageRoute(
                                 builder: (context) => Feed(
                                     start: dropdownValueStart.value,
-                                    end: dropdownValueEnd.value)));
+                                    end: dropdownValueEnd.value,
+                                    authenticatedUser:
+                                        widget.authenticatedUser)));
                       }
                     },
                     child: Text(

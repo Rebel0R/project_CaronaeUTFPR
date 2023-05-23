@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_caronae/components/ride_components.dart';
+import 'package:project_caronae/components/ride_component.dart';
 import 'package:project_caronae/components/user_components.dart';
 import 'package:project_caronae/data/ride_data.dart';
 import 'package:project_caronae/pages/my_rides.dart';
@@ -20,6 +20,7 @@ class OfferRide extends StatefulWidget {
 
 class _OfferRideState extends State<OfferRide> {
   late RideData allRides;
+
   TextEditingController priceController = TextEditingController();
   TextEditingController passengerController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -54,6 +55,7 @@ class _OfferRideState extends State<OfferRide> {
   @override
   Widget build(BuildContext context) {
     allRides = context.watch<RideData>();
+    //allRides.user = widget.authenticatedUser;
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -303,14 +305,15 @@ class _OfferRideState extends State<OfferRide> {
                       if (_formKey.currentState!.validate()) {
                         DateTime now = DateTime.now();
                         allRides.saveRide(Ride(
-                          now,
-                          timeController.text,
-                          dropdownValueStart.value,
-                          dropdownValueEnd.value,
-                          widget.authenticatedUser.fullname,
-                          int.parse(passengerController.text),
-                          double.parse(priceController.text),
-                        ));
+                            nameDriver: widget.authenticatedUser.fullname,
+                            raDriver: widget.authenticatedUser.ra,
+                            date: now,
+                            hour: timeController.text,
+                            locationStart: dropdownValueStart.value,
+                            locationEnd: dropdownValueEnd.value,
+                            value: double.parse(priceController.text),
+                            numberPassengers:
+                                int.parse(passengerController.text)));
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
