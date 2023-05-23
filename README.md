@@ -56,13 +56,19 @@ flutter packages get
 
 ## Bugs 🕷
 
-Após a implementação do banco de corridas, o provider não está mais respondendo
+Até o momento da etapa de desenvolvimento, nenhum bug foi encontrado.
 
 ## Funcionalidades Não Implementadas 😕
 
 Durante a primeira parte do projeto, as funcionalidades não implementadas são:
 
-- Exibição das caronas reservadas por um usuário, ou seja, dentro da tela MyRides não existe a apresentação das caronas reservadas pelo usuário.
+- Exibição das caronas criadas pelo usuário na página MyRides.
+
+- Implementação da transição dos possíveis estados de uma carona (aceita ou recusada). Quando um usuário reservar uma carona um alerta deverá chegar para o outro usuário que ofereceu a mesma, permitindo que ele decida se irá aceitá-lo ou não.
+
+- Envio de uma imagem para a foto de perfil, dentro da tela MyPerfil.
+
+Durante a segunda parte do projeto, as funcionalidades não implementadas são:
 
 - Implementação da transição dos possíveis estados de uma carona (aceita ou recusada). Quando um usuário reservar uma carona um alerta deverá chegar para o outro usuário que ofereceu a mesma, permitindo que ele decida se irá aceitá-lo ou não.
 

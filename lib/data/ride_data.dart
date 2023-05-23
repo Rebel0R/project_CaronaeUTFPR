@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:project_caronae/components/ride_component.dart';
 import 'package:project_caronae/components/ride_widget_component.dart';
 import 'package:project_caronae/services/session_services.dart';
-import '../components/user_components.dart';
 
 class RideData extends ChangeNotifier {
   List<Ride>? rideLists;
@@ -51,12 +50,27 @@ class RideData extends ChangeNotifier {
   }
 
   saveRide(Ride newRides) {
+    print('Salvando corrida!');
     RideDao().saveRide(newRides);
+    rideWidgetList.add(RideWidget(newRides, Session().ra!));
     notifyListeners();
   }
 
   updateRide(int id, String raCaroner) {
+    print('Fazendo update!');
     RideDao().updateRidePassengers(id, raCaroner);
+    for (RideWidget rideWidget in rideWidgetList) {
+      print(rideWidget);
+      if (rideWidget.ride.id == id) {
+        print('Carona: $rideWidget.ride');
+        if (rideWidget.ride.namePassengers == '') {
+          rideWidget.ride.namePassengers = '$raCaroner';
+        } else {
+          String passengers = rideWidget.ride.namePassengers;
+          rideWidget.ride.namePassengers = '$passengers, $raCaroner';
+        }
+      }
+    }
     notifyListeners();
   }
 }
