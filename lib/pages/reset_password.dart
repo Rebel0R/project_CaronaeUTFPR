@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project_caronae/components/user.dart';
+import 'package:project_caronae/components/user_components.dart';
+import 'package:project_caronae/data/users_dao_data.dart';
 
 class ResetPassword extends StatefulWidget {
-  List<User> usersData;
-  ResetPassword({Key? key, required this.usersData}) : super(key: key);
+  ResetPassword({Key? key}) : super(key: key);
 
   @override
   State<ResetPassword> createState() => _ResetPasswordState();
@@ -143,9 +143,30 @@ class _ResetPasswordState extends State<ResetPassword> {
                     width: 180,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          for (User user in widget.usersData) {
+                          User? authenticatedUser = await UserDao()
+                              .updateUserPassword(
+                                  emailController.text,
+                                  passwordController.text,
+                                  newPasswordController.text);
+                          if (authenticatedUser != null) {
+                            print('Senha alterada com sucesso!');
+                            Navigator.pop(context);
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Dados atualizados'),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Algo deu errado'),
+                              ),
+                            );
+                          }
+                          /*for (User user in widget.usersData) {
                             if (user.email == emailController.text &&
                                 user.password == passwordController.text) {
                               user.password = newPasswordController.text;
@@ -157,7 +178,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                 ),
                               );
                             }
-                          }
+                          }*/
                         }
                       },
                       child: Text(

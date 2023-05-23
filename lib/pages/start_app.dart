@@ -1,12 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:project_caronae/data/users_data.dart';
+
 import 'package:project_caronae/pages/login_app.dart';
 import 'package:project_caronae/pages/register_app.dart';
 
 class StartApp extends StatelessWidget {
-  var usersList = UserRepository.users;
   StartApp({Key? key}) : super(key: key);
 
   @override
@@ -90,11 +89,8 @@ class StartApp extends StatelessWidget {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                LoginApp(usersData: usersList)));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginApp()));
                   },
                   child: Text(
                     'Encontre uma carona',
@@ -129,18 +125,10 @@ class StartApp extends StatelessWidget {
                               color: Color.fromARGB(255, 255, 123, 0)),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              usersList.forEach((user) {
-                                print(user.fullname);
-                                print(user.email);
-                                print(user.ra);
-                                print(user.password);
-                              });
-
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => RegisterApp(
-                                          usersRegister: usersList)));
+                                      builder: (context) => RegisterApp()));
                             },
                         )
                       ]))

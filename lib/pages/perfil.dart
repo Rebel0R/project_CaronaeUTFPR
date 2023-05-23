@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_caronae/components/user.dart';
+import 'package:project_caronae/components/user_components.dart';
 import 'package:project_caronae/pages/my_rides.dart';
 import 'package:project_caronae/pages/offer_ride.dart';
 import 'package:project_caronae/pages/search_ride.dart';
@@ -7,9 +7,7 @@ import 'package:project_caronae/pages/start_app.dart';
 
 class MyPerfil extends StatefulWidget {
   User authenticatedUser;
-  List<User> usersData;
-  MyPerfil({Key? key, required this.authenticatedUser, required this.usersData})
-      : super(key: key);
+  MyPerfil({Key? key, required this.authenticatedUser}) : super(key: key);
 
   @override
   State<MyPerfil> createState() => _MyPerfilState();
@@ -184,8 +182,8 @@ class _MyPerfilState extends State<MyPerfil> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => SearchRide(
-                                authenticatedUser: widget.authenticatedUser,
-                                usersData: widget.usersData)));
+                                  authenticatedUser: widget.authenticatedUser,
+                                )));
                   },
                   child: Text(
                     'Procurar',
@@ -202,7 +200,6 @@ class _MyPerfilState extends State<MyPerfil> {
                         MaterialPageRoute(
                             builder: (newContext) => OfferRide(
                                   authenticatedUser: widget.authenticatedUser,
-                                  usersData: widget.usersData,
                                 )));
                   },
                   child: Text(
@@ -219,8 +216,8 @@ class _MyPerfilState extends State<MyPerfil> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => MyRides(
-                                authenticatedUser: widget.authenticatedUser,
-                                usersData: widget.usersData)));
+                                  authenticatedUser: widget.authenticatedUser,
+                                )));
                   },
                   child: Text(
                     'Caronas',

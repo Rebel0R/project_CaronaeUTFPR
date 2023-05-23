@@ -1,13 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:project_caronae/components/user.dart';
+import 'package:project_caronae/components/user_components.dart';
 import 'package:project_caronae/pages/reset_password.dart';
-
 import 'package:project_caronae/pages/search_ride.dart';
+import 'package:project_caronae/data/users_dao_data.dart';
 
 class LoginApp extends StatefulWidget {
-  List<User> usersData;
-  LoginApp({Key? key, required this.usersData}) : super(key: key);
+  LoginApp({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<LoginApp> createState() => _LoginAppState();
@@ -20,14 +21,14 @@ class _LoginAppState extends State<LoginApp> {
 
   final _formKey = GlobalKey<FormState>();
 
-  User searchUser(String ra, String password) {
-    for (User user in widget.usersData) {
-      if (user.ra == ra && user.password == password) {
-        return user;
-      }
-    }
-    return User(fullname: '', email: '', ra: '', password: '');
-  }
+  // User searchUser(String ra, String password) {
+  //   for (User user in widget.usersData) {
+  //     if (user.ra == ra && user.password == password) {
+  //       return user;
+  //     }
+  //   }
+  //   return User(fullname: '', email: '', ra: '', password: '');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -149,9 +150,29 @@ class _LoginAppState extends State<LoginApp> {
                     width: 140,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          User userExist = searchUser(
+                          User? authenticatedUser =
+                              await UserDao().encontrarUserBanco(
+                            raController.text,
+                            passwordController.text,
+                          );
+                          if (authenticatedUser != null) {
+                            print('Login realizado com sucesso!');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchRide(
+                                          authenticatedUser: authenticatedUser,
+                                        )));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Dados inválidos'),
+                              ),
+                            );
+                          }
+                          /*User userExist = searchUser(
                               raController.text, passwordController.text);
                           if (userExist.fullname != '') {
                             Navigator.push(
@@ -166,7 +187,7 @@ class _LoginAppState extends State<LoginApp> {
                                 content: Text('Dados inválidos'),
                               ),
                             );
-                          }
+                          }*/
                         }
                       },
                       child: Text(
@@ -208,8 +229,7 @@ class _LoginAppState extends State<LoginApp> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => ResetPassword(
-                                            usersData: widget.usersData)));
+                                        builder: (context) => ResetPassword()));
                               },
                           )
                         ])),

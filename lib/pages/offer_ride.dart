@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_caronae/components/ride.dart';
-import 'package:project_caronae/components/user.dart';
+import 'package:project_caronae/components/ride_components.dart';
+import 'package:project_caronae/components/user_components.dart';
 import 'package:project_caronae/data/ride_data.dart';
 import 'package:project_caronae/pages/my_rides.dart';
 import 'package:project_caronae/pages/perfil.dart';
@@ -9,11 +9,9 @@ import 'package:provider/provider.dart';
 
 class OfferRide extends StatefulWidget {
   User authenticatedUser;
-  List<User> usersData;
   OfferRide({
     Key? key,
     required this.authenticatedUser,
-    required this.usersData,
   }) : super(key: key);
 
   @override
@@ -323,8 +321,9 @@ class _OfferRideState extends State<OfferRide> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SearchRide(
-                                    authenticatedUser: widget.authenticatedUser,
-                                    usersData: widget.usersData)));
+                                      authenticatedUser:
+                                          widget.authenticatedUser,
+                                    )));
                       }
                     },
                     child: Text(
@@ -362,8 +361,8 @@ class _OfferRideState extends State<OfferRide> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => SearchRide(
-                                authenticatedUser: widget.authenticatedUser,
-                                usersData: widget.usersData)));
+                                  authenticatedUser: widget.authenticatedUser,
+                                )));
                   },
                   child: Text(
                     'Procurar',
@@ -390,8 +389,8 @@ class _OfferRideState extends State<OfferRide> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => MyRides(
-                                authenticatedUser: widget.authenticatedUser,
-                                usersData: widget.usersData)));
+                                  authenticatedUser: widget.authenticatedUser,
+                                )));
                   },
                   child: Text(
                     'Caronas',
@@ -407,8 +406,8 @@ class _OfferRideState extends State<OfferRide> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => MyPerfil(
-                                authenticatedUser: widget.authenticatedUser,
-                                usersData: widget.usersData)));
+                                  authenticatedUser: widget.authenticatedUser,
+                                )));
                   },
                   child: Text(
                     'Perfil',

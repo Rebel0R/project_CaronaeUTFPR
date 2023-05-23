@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_caronae/components/ride.dart';
+import 'package:project_caronae/components/ride_components.dart';
 import 'package:project_caronae/data/ride_data.dart';
 import 'package:provider/provider.dart';
 

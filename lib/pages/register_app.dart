@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:project_caronae/components/user.dart';
+import 'package:project_caronae/components/user_components.dart';
 import 'package:project_caronae/pages/login_app.dart';
+import 'package:project_caronae/data/users_dao_data.dart';
 
 class RegisterApp extends StatefulWidget {
-  List<User> usersRegister;
-  RegisterApp({Key? key, required this.usersRegister}) : super(key: key);
+  RegisterApp({Key? key}) : super(key: key);
 
   @override
   State<RegisterApp> createState() => _RegisterAppState();
@@ -19,7 +19,7 @@ class _RegisterAppState extends State<RegisterApp> {
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  bool searchUser(User newUser) {
+  /*bool searchUser(User newUser) {
     for (User user in widget.usersRegister) {
       if (user.fullname == newUser.fullname) {
         return true;
@@ -32,7 +32,7 @@ class _RegisterAppState extends State<RegisterApp> {
       }
     }
     return false;
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -169,7 +169,34 @@ class _RegisterAppState extends State<RegisterApp> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          bool userExist = searchUser(User(
+                          UserDao().saveUser(User(
+                            fullname: fullnameController.text,
+                            email: emailController.text,
+                            ra: raController.text,
+                            password: passwordController.text,
+                          ));
+
+                          if (UserDao().saveUser(User(
+                                fullname: fullnameController.text,
+                                email: emailController.text,
+                                ra: raController.text,
+                                password: passwordController.text,
+                              )) ==
+                              -1) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Usuário já cadastrado'),
+                              ),
+                            );
+                          } else {
+                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Cadastrado com sucesso!'),
+                              ),
+                            );
+                          }
+                          /*bool userExist = searchUser(User(
                               fullname: fullnameController.text,
                               email: emailController.text,
                               ra: raController.text,
@@ -192,7 +219,7 @@ class _RegisterAppState extends State<RegisterApp> {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content: Text('Usuário já cadastrado')));
-                          }
+                          }*/
                         }
                       },
                       child: Text(
@@ -231,8 +258,7 @@ class _RegisterAppState extends State<RegisterApp> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginApp(
-                                          usersData: widget.usersRegister)));
+                                      builder: (context) => LoginApp()));
                             },
                         )
                       ])),
