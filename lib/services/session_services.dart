@@ -1,15 +1,16 @@
 //utilizar essa classe para ter um controle de sessões
-class Session {
-  String fullname;
-  String email;
-  String ra;
-  String password;
-  String token;
+import '../components/user_components.dart';
 
-  Session(
-      {required this.fullname,
-      required this.email,
-      required this.ra,
-      required this.password,
-      required this.token});
+class Session {
+  String? nome;
+  String? email;
+  String? ra;
+
+  static final Session _instancia = Session._construtorPrivado();
+
+  factory Session() {
+    return _instancia;
+  }
+
+  Session._construtorPrivado();
 }
