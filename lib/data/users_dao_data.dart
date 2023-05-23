@@ -27,11 +27,9 @@ class UserDao {
         return await bancoDeDados.insert(_tablename, userMap);
       } catch (e) {
         print('Erro ao cadastrar o usuário o usuário: $e');
-        // Trate o erro da inserção conforme necessário
       }
     } else {
       print('Usuário existente no banco!');
-      // Você pode escolher se deseja fazer alguma ação adicional quando o usuário já existe
     }
   }
 
