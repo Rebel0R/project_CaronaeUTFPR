@@ -44,18 +44,24 @@ class _MyRidesState extends State<MyRides> {
             : ListView.builder(
                 itemCount: rides.list.length,
                 itemBuilder: (_, index) {
-                  return (RideWidget(
-                      Ride(
-                          nameDriver: rides.list[index].ride.nameDriver,
-                          raDriver: rides.list[index].ride.raDriver,
-                          date: rides.list[index].ride.date,
-                          hour: rides.list[index].ride.hour,
-                          locationStart: rides.list[index].ride.locationStart,
-                          locationEnd: rides.list[index].ride.locationEnd,
-                          value: rides.list[index].ride.value,
-                          numberPassengers:
-                              rides.list[index].ride.numberPassengers),
-                      widget.authenticatedUser.ra));
+                  return (rides.list[index].ride.raDriver ==
+                          widget.authenticatedUser.ra)
+                      ? RideWidget(
+                          Ride(
+                              nameDriver: rides.list[index].ride.nameDriver,
+                              raDriver: rides.list[index].ride.raDriver,
+                              date: rides.list[index].ride.date,
+                              hour: rides.list[index].ride.hour,
+                              locationStart:
+                                  rides.list[index].ride.locationStart,
+                              locationEnd: rides.list[index].ride.locationEnd,
+                              value: rides.list[index].ride.value,
+                              numberPassengers:
+                                  rides.list[index].ride.numberPassengers),
+                          widget.authenticatedUser.ra)
+                      : SizedBox(
+                          height: 0,
+                        );
                 },
               );
       }),

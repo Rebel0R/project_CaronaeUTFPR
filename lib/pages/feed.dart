@@ -41,29 +41,34 @@ class _FeedState extends State<Feed> {
           ),
         ),
         body: Consumer<RideData>(builder: (context, rides, child) {
-          return rides.list.isEmpty
+          // Obtenha a instância correta do RideData usando Provider.of
+          final rideData = Provider.of<RideData>(context);
+          return rideData.list.isEmpty
               ? ListTile(
                   title: Text('Nenhuma carona encontrada'),
                 )
               : ListView.builder(
-                  itemCount: rides.list.length,
+                  itemCount: rideData.list.length,
                   itemBuilder: (_, index) {
-                    return (rides.list[index].ride.locationStart ==
+                    return (rideData.list[index].ride.locationStart ==
                                 widget.start &&
-                            rides.list[index].ride.locationEnd == widget.end)
+                            rideData.list[index].ride.locationEnd == widget.end)
                         ? RideWidget(
                             Ride(
-                                nameDriver: rides.list[index].ride.nameDriver,
-                                raDriver: rides.list[index].ride.raDriver,
-                                date: rides.list[index].ride.date,
-                                hour: rides.list[index].ride.hour,
-                                locationStart:
-                                    rides.list[index].ride.locationStart,
-                                locationEnd: rides.list[index].ride.locationEnd,
-                                value: rides.list[index].ride.value,
-                                numberPassengers:
-                                    rides.list[index].ride.numberPassengers),
-                            widget.authenticatedUser.ra)
+                              nameDriver: rideData.list[index].ride.nameDriver,
+                              raDriver: rideData.list[index].ride.raDriver,
+                              date: rideData.list[index].ride.date,
+                              hour: rideData.list[index].ride.hour,
+                              locationStart:
+                                  rideData.list[index].ride.locationStart,
+                              locationEnd:
+                                  rideData.list[index].ride.locationEnd,
+                              value: rideData.list[index].ride.value,
+                              numberPassengers:
+                                  rideData.list[index].ride.numberPassengers,
+                            ),
+                            widget.authenticatedUser.ra,
+                          )
                         : SizedBox(
                             height: 0,
                           );
