@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:project_caronae/components/ride.dart';
+import 'package:project_caronae/components/ride_components.dart';
 
 class RideData extends ChangeNotifier {
   List<Ride> rideLists = [
