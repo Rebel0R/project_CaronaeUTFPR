@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:project_caronae/components/ride_component.dart';
+import 'package:project_caronae/components/user_components.dart';
+import 'package:provider/provider.dart';
+import '../data/ride_data.dart';
 
-class Ride extends StatefulWidget {
-  final String nameDriver;
-  final DateTime date;
-  final String hour;
-  final String locationStart;
-  final String locationEnd;
-  final double value;
-  int passenger;
-
-  Ride(this.date, this.hour, this.locationStart, this.locationEnd,
-      this.nameDriver, this.passenger, this.value,
-      {Key? key})
-      : super(key: key);
+class RideWidget extends StatefulWidget {
+  Ride ride;
+  String raUSer;
+  RideWidget(this.ride, this.raUSer, {Key? key}) : super(key: key);
 
   @override
-  State<Ride> createState() => _RideState();
+  State<RideWidget> createState() => _RideWidgetState();
 }
 
-class _RideState extends State<Ride> {
-  void attPassenger() {
-    setState(() {
-      if (widget.passenger > 0) {
-        widget.passenger--;
-      }
-    });
-  }
+class _RideWidgetState extends State<RideWidget> {
+  late RideData allRides;
+  // void attnumberPassengers() {
+  //   setState(() {
+  //     if (widget.ride.numberPassengers > 0) {
+  //       widget.ride.numberPassengers--;
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
+    allRides = context.watch<RideData>();
+    //allRides.user = widget.authenticatedUser;
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 10, left: 20, right: 20),
       child: Container(
@@ -46,11 +44,11 @@ class _RideState extends State<Ride> {
                 Column(
                   children: [
                     Text(
-                      '${widget.date.day}/${widget.date.month}',
+                      '${widget.ride.date.day}/${widget.ride.date.month}',
                       style: TextStyle(color: Color(0xFFFFF4DF), fontSize: 15),
                     ),
                     Text(
-                      widget.hour,
+                      widget.ride.hour,
                       style: TextStyle(color: Color(0xFFFFF4DF), fontSize: 15),
                     )
                   ],
@@ -59,10 +57,10 @@ class _RideState extends State<Ride> {
                   children: [
                     Text(
                       maxLines: 2,
-                      '${widget.locationStart}',
+                      '${widget.ride.locationStart}',
                       style: TextStyle(
                         color: Color(0xFFFFF4DF),
-                        fontSize: 16,
+                        fontSize: 12,
                       ),
                     ),
                     Icon(
@@ -72,8 +70,8 @@ class _RideState extends State<Ride> {
                     ),
                     Text(
                       maxLines: 2,
-                      '${widget.locationEnd}',
-                      style: TextStyle(color: Color(0xFFFFF4DF), fontSize: 16),
+                      '${widget.ride.locationEnd}',
+                      style: TextStyle(color: Color(0xFFFFF4DF), fontSize: 12),
                     ),
                   ],
                 ),
@@ -86,7 +84,7 @@ class _RideState extends State<Ride> {
                           color: Color(0xFFFFF4DF),
                         ),
                         Text(
-                          '${widget.value}',
+                          '${widget.ride.value}',
                           style:
                               TextStyle(color: Color(0xFFFFF4DF), fontSize: 15),
                         ),
@@ -96,7 +94,7 @@ class _RideState extends State<Ride> {
                       children: [
                         Icon(Icons.person, color: Color(0xFFFFF4DF)),
                         Text(
-                          '${widget.passenger}',
+                          '${widget.ride.numberPassengers}',
                           style:
                               TextStyle(color: Color(0xFFFFF4DF), fontSize: 15),
                         ),
@@ -111,7 +109,7 @@ class _RideState extends State<Ride> {
               children: [
                 Text(
                   maxLines: 2,
-                  widget.nameDriver,
+                  widget.ride.nameDriver,
                   style: TextStyle(
                       color: Color(0xFFFFF4DF),
                       fontSize: 20,
@@ -122,7 +120,8 @@ class _RideState extends State<Ride> {
                   height: 40,
                   child: ElevatedButton(
                     onPressed: () {
-                      attPassenger();
+                      allRides.updateRide(widget.ride.id, widget.raUSer);
+                      //attnumberPassengers();
                     },
                     child: Text(
                       'Reservar',
