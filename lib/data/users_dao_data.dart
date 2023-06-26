@@ -147,4 +147,12 @@ class UserDao {
       whereArgs: [registerStudent],
     );
   }
+
+  //limpando a lista
+  Future<void> deleteAllUsers() async {
+    print('Excluindo todos os usuários');
+    final Database bancoDeDados = await getDatabaseUser();
+    await bancoDeDados.delete(_tablename);
+    print('Todos os usuários foram excluídos');
+  }
 }

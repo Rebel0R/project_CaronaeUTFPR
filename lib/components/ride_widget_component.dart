@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_caronae/components/ride_component.dart';
 import 'package:project_caronae/components/user_components.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../data/ride_data.dart';
 
@@ -15,6 +16,16 @@ class RideWidget extends StatefulWidget {
 
 class _RideWidgetState extends State<RideWidget> {
   late RideData allRides;
+
+  bool buttonEnabled = true;
+  String buttonText = 'Reservar';
+
+  void disableButton() {
+    setState(() {
+      buttonEnabled = false;
+      buttonText = 'Espera';
+    });
+  }
   // void attnumberPassengers() {
   //   setState(() {
   //     if (widget.ride.numberPassengers > 0) {
@@ -26,6 +37,12 @@ class _RideWidgetState extends State<RideWidget> {
   @override
   Widget build(BuildContext context) {
     allRides = context.watch<RideData>();
+
+    DateFormat format = DateFormat.Hm();
+    DateTime parsedTime = format.parse(widget.ride.hour);
+    DateTime newTime = parsedTime.add(Duration(minutes: 20));
+    String timeArrival = format.format(newTime);
+
     //allRides.user = widget.authenticatedUser;
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 10, left: 20, right: 20),
@@ -44,13 +61,17 @@ class _RideWidgetState extends State<RideWidget> {
                 Column(
                   children: [
                     Text(
-                      '${widget.ride.date.day}/${widget.ride.date.month}',
+                      '${widget.ride.date.day}/${widget.ride.date.month}/${widget.ride.date.year}',
                       style: TextStyle(color: Color(0xFFFFF4DF), fontSize: 15),
                     ),
                     Text(
-                      widget.ride.hour,
-                      style: TextStyle(color: Color(0xFFFFF4DF), fontSize: 15),
-                    )
+                      'Partida: ${widget.ride.hour}',
+                      style: TextStyle(color: Color(0xFFFFF4DF), fontSize: 13),
+                    ),
+                    Text(
+                      'Chegada: ${timeArrival}',
+                      style: TextStyle(color: Color(0xFFFFF4DF), fontSize: 13),
+                    ),
                   ],
                 ),
                 Row(
@@ -119,24 +140,29 @@ class _RideWidgetState extends State<RideWidget> {
                   width: 120,
                   height: 40,
                   child: ElevatedButton(
-                    onPressed: () {
-                      allRides.updateRide(widget.ride.id, widget.raUSer);
-                      //attnumberPassengers();
-                    },
+                    onPressed: buttonEnabled
+                        ? () {
+                            disableButton();
+                          }
+                        : null,
                     child: Text(
-                      'Reservar',
+                      '${buttonText}',
                       style: TextStyle(
                           color: Color(0XFFFF7B00),
                           fontFamily: 'Roboto',
                           fontSize: 22),
                     ),
                     style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25)),
-                        ),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Color(0xFFFFF4DF))),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                      ),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        buttonEnabled
+                            ? Color(0xFFFFF4DF)
+                            : Color.fromARGB(255, 254, 181, 125),
+                      ),
+                    ),
                   ),
                 )
               ],

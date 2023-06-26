@@ -160,4 +160,16 @@ class RideDao {
       return null;
     }
   }
+
+  //limpando a tabela
+  Future<int> deleteAllRides() async {
+    print('\tEXCLUINDO TODAS AS CORRIDAS');
+    final Database bancoDeDados = await getDatabaseRide();
+    try {
+      return await bancoDeDados.delete(_tablename);
+    } catch (e) {
+      print('Erro ao excluir todas as corridas: $e');
+      return 0;
+    }
+  }
 }
