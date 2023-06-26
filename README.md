@@ -4,9 +4,14 @@ Projeto desenvolvido para a matéria de Programação para Dispositivos Móveis,
 
 ## Membros e suas contribuições 📝
 
-- **[Ana Julia Ribeiro](https://github.com/anajuliaribeiro)** - Desenvolvimento das telas: StartApp, Login, Register e ResetPassword. Navegação entre as telas. Criação dos componentes User e Ride. Estudo e entendimento do Firebase.
+- **[Ana Julia Ribeiro](https://github.com/anajuliaribeiro)** - Desenvolvimento das telas: StartApp, Login, Register e ResetPassword. Navegação entre as telas. Criação dos componentes User e Ride. Estudo e entendimento do Firebase. Estudo e implementação de recursos nativos do dispositivo móvel.
 
-- **[Ricardo Rebelo Junior](https://github.com/Rebel0R)**- Desenvolvimento das telas: SearchRide, OfferRide, MyPerfil, My Rides e Feed. Validação dos dados e feedback de erros. Compartilhamento de dados entre páginas utilizando Provider, e cadastro de novas corridas em uma Lista de Corridas pré-cadastradas. Elaboração da identidade visual do Aplicativo e prototipação das telas. Estudo e implementação do SQLite.
+- **[Ricardo Rebelo Junior](https://github.com/Rebel0R)**- Desenvolvimento das telas: SearchRide, OfferRide, MyPerfil, My Rides e Feed. Validação dos dados e feedback de erros. Compartilhamento de dados entre páginas utilizando Provider, e cadastro de novas corridas em uma Lista de Corridas pré-cadastradas. Elaboração da identidade visual do Aplicativo e prototipação das telas. Estudo e implementação do SQLite. Utilização da API climática **Weatherbi**.
+
+## Sobre a API Weatherbi 🌤
+
+Essa API pode ser acessada através do link: https://www.weatherbit.io/
+Ela oferece, com base na latitude e longitude informadas na url da requisição, dados como: temperatura, preciptação, velocidade do vento, sensação térmica e etc.
 
 ## Instalação do projeto 💻
 
@@ -46,6 +51,10 @@ dependencies:
   flutter:
     sdk: flutter
   provider: ^5.0.0
+  cupertino_icons: ^1.0.2
+  sqflite: ^2.2.8+4
+  intl: ^0.18.1
+  http: ^0.13.6
 ```
 
 Seguida pela execução deste comando no terminal:
