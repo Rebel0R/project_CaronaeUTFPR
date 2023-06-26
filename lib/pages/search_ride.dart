@@ -4,6 +4,8 @@ import 'package:project_caronae/pages/feed.dart';
 import 'package:project_caronae/pages/my_rides.dart';
 import 'package:project_caronae/pages/offer_ride.dart';
 import 'package:project_caronae/pages/perfil.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class SearchRide extends StatefulWidget {
   User authenticatedUser;
@@ -46,9 +48,123 @@ class _SearchRideState extends State<SearchRide> {
   final dropdownValueEnd = ValueNotifier<String>('');
 
   //final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      showWelcomeDialog(context);
+    });
+  }
+
+  Future<Map<String, dynamic>> fetchTemperature() async {
+    final response = await http.get(Uri.parse(
+        'https://api.weatherbit.io/v2.0/current?lat=-25.0916&lon=-50.1615&key=d0d529824ea34616b343a1fb74741414&include=minutely'));
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      final city = data['data'][0]['city_name'].toString();
+      final temperature = data['data'][0]['temp'].toString();
+      final precip = data['data'][0]['precip'].toString();
+      //print(data);
+      return {'temperature': temperature, 'precip': precip, 'city': city};
+    } else {
+      throw Exception('${response.statusCode}');
+    }
+  }
+
+  void showWelcomeDialog(BuildContext context) async {
+    final BuildContext dialogContext = context;
+
+    try {
+      final Map<String, dynamic> climate = await fetchTemperature();
+      String message;
+      String temperatureString = climate['temperature'];
+      int precip = int.parse(climate['precip']);
+      double temperatureValue = double.tryParse(temperatureString) ?? 0.0;
+
+      if (temperatureValue != null) {
+        if (precip == 0) {
+          if (temperatureValue > 25) {
+            message = 'Beba muita água, Caroner';
+          } else if (temperatureValue < 15) {
+            message = 'Não esqueça de se agasalhar, Caroner';
+          } else {
+            message = 'Viagem com segurança';
+          }
+        } else {
+          message = 'Não esqueça do guarda-chuva';
+        }
+      } else {
+        message = '';
+      }
+
+      showDialog(
+        context: dialogContext,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: SingleChildScrollView(
+              child: SizedBox(
+                height: 160,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 70,
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 15),
+                        child: temperatureValue > 30
+                            ? Image.asset('images/icon-Summer.png')
+                            : Image.asset('images/icon-winter.png'),
+                      ),
+                    ),
+                    Text(
+                      'Bem-vindo, ${widget.authenticatedUser.fullname}',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                        color: Color(0XFFF26700),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Temperatura em ${climate['city']}: ${climate['temperature']}°C',
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        color: Color(0XFFF26700),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      message,
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        color: Color(0XFFF26700),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(dialogContext).pop(); // Fechar o diálogo
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      print('Erro ao buscar a temperatura: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    //fetchWeatherForecast();
     return Scaffold(
       body: Container(
         alignment: Alignment.center,

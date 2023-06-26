@@ -23,6 +23,7 @@ class Feed extends StatefulWidget {
 
 class _FeedState extends State<Feed> {
   DateTime now = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +53,11 @@ class _FeedState extends State<Feed> {
                   itemBuilder: (_, index) {
                     return (rideData.list[index].ride.locationStart ==
                                 widget.start &&
-                            rideData.list[index].ride.locationEnd == widget.end)
+                            rideData.list[index].ride.locationEnd ==
+                                widget.end &&
+                            rideData.list[index].ride.date.day == now.day &&
+                            rideData.list[index].ride.date.month == now.month &&
+                            rideData.list[index].ride.date.year == now.year)
                         ? RideWidget(
                             Ride(
                               nameDriver: rideData.list[index].ride.nameDriver,

@@ -4,6 +4,8 @@ import 'package:project_caronae/pages/my_rides.dart';
 import 'package:project_caronae/pages/offer_ride.dart';
 import 'package:project_caronae/pages/search_ride.dart';
 import 'package:project_caronae/pages/start_app.dart';
+import 'package:project_caronae/data/users_dao_data.dart';
+import 'package:project_caronae/data/rides_dao_data.dart';
 
 class MyPerfil extends StatefulWidget {
   User authenticatedUser;
@@ -141,6 +143,8 @@ class _MyPerfilState extends State<MyPerfil> {
               height: 55,
               child: ElevatedButton(
                 onPressed: () {
+                  //await UserDao().deleteAllUsers();
+                  //await RideDao().deleteAllRides();
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => StartApp()));
                   ScaffoldMessenger.of(context).showSnackBar(
