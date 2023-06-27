@@ -51,7 +51,7 @@ class _SearchRideState extends State<SearchRide> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       showWelcomeDialog(context);
     });
   }
@@ -88,7 +88,7 @@ class _SearchRideState extends State<SearchRide> {
           } else if (temperatureValue < 15) {
             message = 'Não esqueça de se agasalhar, Caroner';
           } else {
-            message = 'Viagem com segurança';
+            message = 'Boa carona, Caroner!';
           }
         } else {
           message = 'Não esqueça do guarda-chuva';
@@ -110,7 +110,7 @@ class _SearchRideState extends State<SearchRide> {
                       height: 70,
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 15),
-                        child: temperatureValue > 30
+                        child: temperatureValue > 20
                             ? Image.asset('images/icon-Summer.png')
                             : Image.asset('images/icon-winter.png'),
                       ),

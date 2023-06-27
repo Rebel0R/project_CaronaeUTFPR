@@ -4,8 +4,10 @@ import 'package:project_caronae/pages/my_rides.dart';
 import 'package:project_caronae/pages/offer_ride.dart';
 import 'package:project_caronae/pages/search_ride.dart';
 import 'package:project_caronae/pages/start_app.dart';
-import 'package:project_caronae/data/users_dao_data.dart';
-import 'package:project_caronae/data/rides_dao_data.dart';
+//import 'package:project_caronae/data/users_dao_data.dart';
+//import 'package:project_caronae/data/rides_dao_data.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 
 class MyPerfil extends StatefulWidget {
   User authenticatedUser;
@@ -18,6 +20,10 @@ class MyPerfil extends StatefulWidget {
 class _MyPerfilState extends State<MyPerfil> {
   @override
   Widget build(BuildContext context) {
+    String profilePhoto = widget.authenticatedUser.profilePhoto;
+    bool hasProfilePhoto = profilePhoto.isNotEmpty;
+    Uint8List? photoBytes = hasProfilePhoto ? base64Decode(profilePhoto) : null;
+
     return Scaffold(
       body: Container(
         width: 412,
@@ -63,14 +69,23 @@ class _MyPerfilState extends State<MyPerfil> {
                     width: 100,
                     height: 100,
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 57, 57, 57),
-                        borderRadius: BorderRadius.circular(100)),
-                    child: Icon(
-                      Icons.image_sharp,
-                      size: 50,
-                      color: Colors.white54,
+                      color: Color.fromARGB(255, 57, 57, 57),
+                      borderRadius: BorderRadius.circular(100),
                     ),
-                  )
+                    child: hasProfilePhoto
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Image.memory(
+                              photoBytes!,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : Icon(
+                            Icons.image_sharp,
+                            size: 50,
+                            color: Colors.white54,
+                          ),
+                  ),
                 ],
               ),
             ),

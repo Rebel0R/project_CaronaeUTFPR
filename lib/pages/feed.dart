@@ -73,6 +73,7 @@ class _FeedState extends State<Feed> {
                                   rideData.list[index].ride.numberPassengers,
                             ),
                             widget.authenticatedUser.ra,
+                            true,
                           )
                         : SizedBox(
                             height: 0,

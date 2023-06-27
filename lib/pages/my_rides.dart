@@ -39,7 +39,15 @@ class _MyRidesState extends State<MyRides> {
       body: Consumer<RideData>(builder: (context, rides, child) {
         return rides.list.isEmpty
             ? ListTile(
-                title: Text('Nenhuma carona encontrada'),
+                title: Text(
+                  'Você ainda não ofereceu nenhuma carona',
+                  style: TextStyle(
+                    color: Color(0XFFFF7B00),
+                    fontFamily: 'Roboto',
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               )
             : ListView.builder(
                 itemCount: rides.list.length,
@@ -58,7 +66,8 @@ class _MyRidesState extends State<MyRides> {
                               value: rides.list[index].ride.value,
                               numberPassengers:
                                   rides.list[index].ride.numberPassengers),
-                          widget.authenticatedUser.ra)
+                          widget.authenticatedUser.ra,
+                          false)
                       : SizedBox(
                           height: 0,
                         );

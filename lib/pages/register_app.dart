@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:project_caronae/components/user_components.dart';
 import 'package:project_caronae/pages/login_app.dart';
 import 'package:project_caronae/data/users_dao_data.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'dart:convert';
 
 class RegisterApp extends StatefulWidget {
   RegisterApp({Key? key}) : super(key: key);
@@ -19,20 +22,20 @@ class _RegisterAppState extends State<RegisterApp> {
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  /*bool searchUser(User newUser) {
-    for (User user in widget.usersRegister) {
-      if (user.fullname == newUser.fullname) {
-        return true;
-      }
-      if (user.email == newUser.email) {
-        return true;
-      }
-      if (user.ra == newUser.ra) {
-        return true;
-      }
+  File? _selectedImage;
+  String? base64Image;
+
+  Future<void> _openCamera() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+
+      List<int> imageBytes = await _selectedImage!.readAsBytes();
+      base64Image = base64Encode(imageBytes);
     }
-    return false;
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +50,38 @@ class _RegisterAppState extends State<RegisterApp> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 70, bottom: 25),
+                  padding: const EdgeInsets.only(top: 70, bottom: 10),
                   child: Container(
                     height: 80,
                     width: 280,
                     child: Image.asset('images/logoOrange.png'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 57, 57, 57),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: _selectedImage != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.file(
+                              _selectedImage!,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : IconButton(
+                            icon: Icon(
+                              Icons.camera_alt,
+                              size: 50,
+                              color: Colors.white54,
+                            ),
+                            onPressed: _openCamera,
+                          ),
                   ),
                 ),
                 Padding(
@@ -170,18 +200,18 @@ class _RegisterAppState extends State<RegisterApp> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           UserDao().saveUser(User(
-                            fullname: fullnameController.text,
-                            email: emailController.text,
-                            ra: raController.text,
-                            password: passwordController.text,
-                          ));
+                              fullname: fullnameController.text,
+                              email: emailController.text,
+                              ra: raController.text,
+                              password: passwordController.text,
+                              profilePhoto: base64Image ?? ''));
 
                           if (UserDao().saveUser(User(
-                                fullname: fullnameController.text,
-                                email: emailController.text,
-                                ra: raController.text,
-                                password: passwordController.text,
-                              )) ==
+                                  fullname: fullnameController.text,
+                                  email: emailController.text,
+                                  ra: raController.text,
+                                  password: passwordController.text,
+                                  profilePhoto: base64Image ?? '')) ==
                               -1) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -196,30 +226,6 @@ class _RegisterAppState extends State<RegisterApp> {
                               ),
                             );
                           }
-                          /*bool userExist = searchUser(User(
-                              fullname: fullnameController.text,
-                              email: emailController.text,
-                              ra: raController.text,
-                              password: passwordController.text));
-
-                          if (!userExist) {
-                            widget.usersRegister.add(User(
-                                fullname: fullnameController.text,
-                                email: emailController.text,
-                                ra: raController.text,
-                                password: passwordController.text));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Cadastrado com sucesso!'),
-                              ),
-                            );
-
-                            Navigator.pop(context);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Usuário já cadastrado')));
-                          }*/
                         }
                       },
                       child: Text(
