@@ -26,9 +26,9 @@ class RideData extends ChangeNotifier {
         Session sessao = Session();
         RideWidget rideWidget;
         if (sessaoPreenchida(sessao)) {
-          rideWidget = RideWidget(ride, sessao.ra!);
+          rideWidget = RideWidget(ride, sessao.ra!, true);
         } else {
-          rideWidget = RideWidget(ride, "");
+          rideWidget = RideWidget(ride, "", true);
         }
         // Crie o objeto RideWidget com base no objeto Ride
         rideWidgetList.add(
@@ -52,7 +52,7 @@ class RideData extends ChangeNotifier {
   saveRide(Ride newRides) {
     print('Salvando corrida!');
     RideDao().saveRide(newRides);
-    rideWidgetList.add(RideWidget(newRides, Session().ra!));
+    rideWidgetList.add(RideWidget(newRides, Session().ra!, true));
     notifyListeners();
   }
 

@@ -7,13 +7,15 @@ class UserDao {
       '$_name TEXT, '
       '$_email TEXT, '
       '$_registerStudent TEXT, '
-      '$_password TEXT)';
+      '$_password TEXT,'
+      '$_profilePhoto TEXT)';
 
-  static const String _tablename = 'userTable';
+  static const String _tablename = 'usersTable';
   static const String _name = 'name';
   static const String _email = 'email';
   static const String _registerStudent = 'ra';
   static const String _password = 'password';
+  static const String _profilePhoto = 'profilePhoto';
 
   saveUser(User usuario) async {
     print('\tCADASTRO DE USUARIO');
@@ -63,13 +65,13 @@ class UserDao {
   }
 
   Map<String, dynamic> converteMap(User usuario) {
-    //print('Convertendo para o tipo Map: ');
     final Map<String, dynamic> mapaUsers = Map();
     mapaUsers[_name] = usuario.fullname;
     mapaUsers[_email] = usuario.email;
     mapaUsers[_registerStudent] = usuario.ra;
     mapaUsers[_password] = usuario.password;
-    print('Mapa de Usuário: $mapaUsers');
+    mapaUsers[_profilePhoto] = usuario.profilePhoto;
+    print('Mapa de Usuário: $mapaUsers'); // Add profilePhoto to the map
     return mapaUsers;
   }
 
@@ -91,7 +93,8 @@ class UserDao {
           fullname: linha[_name],
           email: linha[_email],
           ra: linha[_registerStudent],
-          password: linha[_password]);
+          password: linha[_password],
+          profilePhoto: linha[_profilePhoto]);
       usuarios.add(usuario);
     }
     print('Lista de Usuarios: ${usuarios.toString()}');
@@ -113,11 +116,11 @@ class UserDao {
 
   User converteUser(Map<String, dynamic> mapaUser) {
     return User(
-      fullname: mapaUser[_name],
-      email: mapaUser[_email],
-      ra: mapaUser[_registerStudent],
-      password: mapaUser[_password],
-    );
+        fullname: mapaUser[_name],
+        email: mapaUser[_email],
+        ra: mapaUser[_registerStudent],
+        password: mapaUser[_password],
+        profilePhoto: mapaUser[_profilePhoto]);
   }
 
   Future<User?> encontrarUserBanco(String ra, String password) async {
