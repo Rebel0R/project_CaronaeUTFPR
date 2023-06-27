@@ -8,7 +8,9 @@ import '../data/ride_data.dart';
 class RideWidget extends StatefulWidget {
   Ride ride;
   String raUSer;
-  RideWidget(this.ride, this.raUSer, {Key? key}) : super(key: key);
+  bool showButton;
+  RideWidget(this.ride, this.raUSer, this.showButton, {Key? key})
+      : super(key: key);
 
   @override
   State<RideWidget> createState() => _RideWidgetState();
@@ -26,13 +28,6 @@ class _RideWidgetState extends State<RideWidget> {
       buttonText = 'Espera';
     });
   }
-  // void attnumberPassengers() {
-  //   setState(() {
-  //     if (widget.ride.numberPassengers > 0) {
-  //       widget.ride.numberPassengers--;
-  //     }
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -136,35 +131,36 @@ class _RideWidgetState extends State<RideWidget> {
                       fontSize: 20,
                       fontWeight: FontWeight.w500),
                 ),
-                Container(
-                  width: 120,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: buttonEnabled
-                        ? () {
-                            disableButton();
-                          }
-                        : null,
-                    child: Text(
-                      '${buttonText}',
-                      style: TextStyle(
-                          color: Color(0XFFFF7B00),
-                          fontFamily: 'Roboto',
-                          fontSize: 22),
-                    ),
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25)),
+                if (widget.showButton)
+                  Container(
+                    width: 120,
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: buttonEnabled
+                          ? () {
+                              disableButton();
+                            }
+                          : null,
+                      child: Text(
+                        '${buttonText}',
+                        style: TextStyle(
+                            color: Color(0XFFFF7B00),
+                            fontFamily: 'Roboto',
+                            fontSize: 22),
                       ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        buttonEnabled
-                            ? Color(0xFFFFF4DF)
-                            : Color.fromARGB(255, 254, 181, 125),
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                        ),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          buttonEnabled
+                              ? Color(0xFFFFF4DF)
+                              : Color.fromARGB(255, 254, 181, 125),
+                        ),
                       ),
                     ),
-                  ),
-                )
+                  )
               ],
             ),
           ],
