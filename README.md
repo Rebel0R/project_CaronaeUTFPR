@@ -13,6 +13,10 @@ Projeto desenvolvido para a matéria de Programação para Dispositivos Móveis,
 Essa API pode ser acessada através do link: https://www.weatherbit.io/
 Ela oferece, com base na latitude e longitude informadas na url da requisição, dados como: temperatura, preciptação, velocidade do vento, sensação térmica e etc.
 
+## Diga X 📷
+
+A captura de imagens, utilizando o recurso nativo do dispositivo, foi realizada através do **image_picker**
+
 ## Instalação do projeto 💻
 
 Com base neste repositório, tendo o Flutter instalado em sua máquina e o AndroidStudio, execute este comando no _Git Bash_:
@@ -39,14 +43,6 @@ Versão do Flutter e Dart utilizadas
 Para realizar a passagem de dados de uma tela, adicioná-los em uma lista de Corridas, e permitir que a lista fosse carregada na tela Feed, a dependência **Provider** foi utilizada.
 
 ```bash
-provider: ^5.0.0
-cupertino_icons: ^1.0.2
-sqflite: ^2.2.8+4
-```
-
-Sua instalação foi realizada no arquivo: **pubspec.yaml**.
-
-```bash
 dependencies:
   flutter:
     sdk: flutter
@@ -55,7 +51,10 @@ dependencies:
   sqflite: ^2.2.8+4
   intl: ^0.18.1
   http: ^0.13.6
+  image_picker: ^1.0.0
 ```
+
+Sua instalação foi realizada no arquivo: **pubspec.yaml**.
 
 Seguida pela execução deste comando no terminal:
 
@@ -71,14 +70,22 @@ Até o momento da etapa de desenvolvimento, nenhum bug foi encontrado.
 
 Durante a primeira parte do projeto, as funcionalidades não implementadas são:
 
-- Exibição das caronas criadas pelo usuário na página MyRides.
+- ~~Exibição das caronas criadas pelo usuário na página MyRides.~~
 
 - Implementação da transição dos possíveis estados de uma carona (aceita ou recusada). Quando um usuário reservar uma carona um alerta deverá chegar para o outro usuário que ofereceu a mesma, permitindo que ele decida se irá aceitá-lo ou não.
 
-- Envio de uma imagem para a foto de perfil, dentro da tela MyPerfil.
+- ~~Envio de uma imagem para a foto de perfil, dentro da tela MyPerfil.~~
 
 Durante a segunda parte do projeto, as funcionalidades não implementadas são:
 
 - Implementação da transição dos possíveis estados de uma carona (aceita ou recusada). Quando um usuário reservar uma carona um alerta deverá chegar para o outro usuário que ofereceu a mesma, permitindo que ele decida se irá aceitá-lo ou não.
 
-- Envio de uma imagem para a foto de perfil, dentro da tela MyPerfil.
+- Utilização do banco de dados Firebase.
+
+- ~~Envio de uma imagem para a foto de perfil, dentro da tela MyPerfil.~~
+
+Ao final desse projeto, a terceira parte do projeto, as funcionalidades não implementadas são:
+
+- Implementação da transição dos possíveis estados de uma carona (aceita ou recusada). Quando um usuário reservar uma carona um alerta deverá chegar para o outro usuário que ofereceu a mesma, permitindo que ele decida se irá aceitá-lo ou não.
+
+- Utilização do banco de dados Firebase.
